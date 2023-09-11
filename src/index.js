@@ -1,8 +1,12 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
+
+// express config
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 // andlebars config
 app.engine('hbs', handlebars.engine({
