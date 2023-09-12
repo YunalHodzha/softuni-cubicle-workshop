@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars');
 const expressConfig = require('./config/expressConfig.js');
 const handlebarsConfig = require('./config/handlebarsConfig.js');
 const homeController = require('./controllers/homeController.js');
+const cubeController = require('./controllers/cubeController.js');
 
 const PORT = 3000;
 
@@ -15,5 +16,6 @@ handlebarsConfig(app);
 
 // Routes
 app.use(homeController);
+app.use('/cubes', cubeController);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
