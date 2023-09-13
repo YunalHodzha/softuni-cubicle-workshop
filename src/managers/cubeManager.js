@@ -15,3 +15,8 @@ exports.create = (cubeData) => {
 
     return newCube;
 }
+
+exports.getCubeById = (id) => {
+    const cube = cubes.find(item => item.id === id);
+    return cube;
+}
