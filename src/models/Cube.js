@@ -8,3 +8,5 @@ const cubeShcema = new mongoose.Schema({
 });
 
 const Cube = mongoose.model('Cube', cubeShcema);
+
+module.exports = Cube;
