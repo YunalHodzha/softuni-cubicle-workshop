@@ -22,16 +22,13 @@ router.post('/create', (req, res) => {
 
 router.get('/details/:id', (req, res) => {
     const cube = cubeManager.getCubeById(req.params.id);
-    console.log(cube);
-    if (cube === undefined) {
-        res.render('404');
-    } else {
-        res.render('details', { cube });
-    };
+    
+    if (!cube) {
+        return res.render('404');
+    }
+
+    res.render('details', { cube });
 })
 
-router.get('*', (req, res) => {
-    res.render('404')
-});
 
 module.exports = router;
