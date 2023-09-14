@@ -1,6 +1,6 @@
 <main>
   <h1>Browser</h1>
-  <form action="" method="">
+  <form action="/" method="GET">
     <input type="text" class="search" name="search" placeholder="Search...">
     <input type="number" name="from" class="difficulty" placeholder="Difficulty from...">
     <span>-</span>
@@ -10,9 +10,9 @@
 
   {{#each cubes}}
   <div class="cube">
-    <img class="cube" src="{{imageUrl}}">
-    <p class="name">"{{name}}"</p>
-    <p><span>Difficulty level:</span> "{{difficultyLevel}}"</p>
+    <img class="cube" src={{imageUrl}}>
+    <p class="name">{{name}}</p>
+    <p><span>Difficulty level:</span> {{difficultyLevel}}</p>
     <a class="btn" href="/cubes/details/{{id}}">Details</a>
   </div>
   {{else}}
