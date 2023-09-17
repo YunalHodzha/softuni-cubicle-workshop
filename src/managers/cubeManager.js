@@ -1,5 +1,8 @@
 const Cube = require('../models/Cube');
 
+exports.getCubeById = (id) => Cube.findById(id);
+exports.getOneWithAccessories = (id) => Cube.findById(id).populate('accessories');
+
 exports.getAll = async (search, from, to) => {
     let result = await Cube.find().lean();
 
@@ -30,4 +33,3 @@ exports.attachAccessory = async (cubeId, accessoryId) => {
     return Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessoryId } });
 };
 
-exports.getCubeById = (id) => Cube.findById(id);
