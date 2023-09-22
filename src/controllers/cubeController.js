@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const cubeManager = require('../managers/cubeManager');
 const accessoryManager = require('../managers/accessoryManager');
+const {getDifficultyOptionsViewData} = require('../utils/viewHelpers');
 
 // Path /cubes/create
 router.get('/create', (req, res) => {
@@ -51,8 +52,9 @@ router.post('/:id/attach-accessory', async (req, res) => {
 
 router.get('/:id/delete', async (req, res) => {
     const cube = await cubeManager.getCubeById(req.params.id).lean();
+    const options = getDifficultyOptionsViewData(cube.difficultyLevel);
 
-    res.render('cube/delete', { cube });
+    res.render('cube/delete', { cube, options });
 });
 
 router.post('/:id/delete', async (req, res) => {
@@ -64,7 +66,9 @@ router.post('/:id/delete', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     const cube = await cubeManager.getCubeById(req.params.id).lean();
 
-    res.render('cube/edit', { cube });
+    const options = getDifficultyOptionsViewData(cube.difficultyLevel);
+
+    res.render('cube/edit', { cube, options });
 });
 
 router.post('/:id/edit', async (req, res) => {
