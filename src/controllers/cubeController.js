@@ -25,11 +25,14 @@ router.post('/create', async (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     const cube = await cubeManager.getOneWithAccessories(req.params.id).lean();
+    
     if (!cube) {
         return res.render('404');
     }
 
-    res.render('cube/details', { cube });
+    const isOwner = cube.owner == req.user._id;
+
+    res.render('cube/details', { cube, isOwner });
 });
 
 router.get('/:id/attach-accessory', async (req, res) => {
