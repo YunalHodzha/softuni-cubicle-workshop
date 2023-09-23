@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const userManager = require('../managers/userManager');
-const { extractErrorMessages } = require("../middlewares/errorHanglerMiddleware");
+const { extractErrorMessages } = require("../middlewares/errorHandlerMiddleware");
 
 router.get('/register', (req, res) => {
     res.render('users/register');
