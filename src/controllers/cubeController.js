@@ -31,12 +31,15 @@ router.post('/create', isAuth, async (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     const cube = await cubeManager.getOneWithAccessories(req.params.id).lean();
-
-    if (!cube) {
+    const userId = req.user?._id;
+    let isOwner = false;
+    if (!cube) {    
         return res.render('404');
     }
 
-    const isOwner = cube.owner == req.user?._id;
+    if (userId) {
+        isOwner = cube.owner == req.user._id;
+    };
 
     res.render('cube/details', { cube, isOwner });
 });
