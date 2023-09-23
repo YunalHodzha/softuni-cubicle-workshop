@@ -25,7 +25,7 @@ router.post('/create', isAuth, async (req, res) => {
         res.redirect('/');
     } catch (err) {
         const errorMessage = extractErrorMessages(err);
-        res.status(404).render('cube/create', {errorMessage});
+        res.status(404).render('cube/create', { errorMessage });
     }
 })
 
@@ -43,7 +43,6 @@ router.get('/details/:id', async (req, res) => {
 
 router.get('/:id/attach-accessory', isAuth, async (req, res) => {
     const cube = await cubeManager.getCubeById(req.params.id).lean();
-    console.log(cube);
     const accessories = await accessoryManager.getOthers(cube.accessories).lean();
     const hasAccessories = accessories.length > 0;
 
@@ -54,9 +53,15 @@ router.post('/:id/attach-accessory', isAuth, async (req, res) => {
     const { accessory: accessoryId } = req.body;
     const cubeId = req.params.id;
 
-    await cubeManager.attachAccessory(cubeId, accessoryId);
+    try {
+        await cubeManager.attachAccessory(cubeId, accessoryId);
 
-    res.redirect(`/cube/details/${cubeId}`);
+        res.redirect(`/cubes/details/${cubeId}`);
+    } catch (err) {
+        console.log(err);
+
+        res.redirect(`/`);
+    }
 });
 
 router.get('/:id/delete', isAuth, async (req, res) => {
