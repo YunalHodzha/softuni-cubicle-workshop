@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const accessoryManager = require('../managers/accessoryManager');
+const { extractErrorMessages } = require('../middlewares/errorHandlerMiddleware');
 
 router.get('/create', (req, res) => {
     res.render('accessory/create');
@@ -9,9 +10,14 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
     const { name, description, imageUrl } = req.body;
 
-    await accessoryManager.create({ name, description, imageUrl })
+    try {
+        await accessoryManager.create({ name, description, imageUrl })
 
-    res.redirect('/');
+        res.redirect('/');
+    } catch (err) {
+        const errorMessage = extractErrorMessages(err);
+        res.status(404).render('accessory/create', { errorMessage });
+    }
 })
 
 module.exports = router;
